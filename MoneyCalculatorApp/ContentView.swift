@@ -8,36 +8,58 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var inputText1: String = ""
-    @State var inputText2: String = ""
-    @State var inputText3: String = ""
-    @State var resultText1: String = ""
-    @State var resultText2: String = ""
+    @State var editNum1 = 0
+    @State var editNum2 = 0
+    @State var editNum3 = 0
+    @State var totalResult = 0
     @FocusState var isInputActive:Bool
 
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
+                    Spacer()
                     Text("10000円")
-                    TextField("枚数入力", text: $inputText1)
+                    TextField("Input Number", value: $editNum1, format: .number)
                         .frame(height: 20)
                         .frame(width: 100)
                         .keyboardType(.numberPad)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text(resultText1)
+                    Text("\(additionAction(num: editNum1,moneyNum:10000))")
+                    Spacer()
                 }
                 HStack {
-                    Text("5000円")
-                    TextField("枚数入力", text: $inputText1)
+                    Spacer()
+                    Text(" 5000円")
+                    TextField("Input Number", value: $editNum2, format: .number)
                         .frame(height: 20)
                         .frame(width: 100)
                         .keyboardType(.numberPad)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text(resultText2)
+                    Text("\(additionAction(num: editNum2,moneyNum: 5000))")
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
+                    Text(" 1000円")
+                    TextField("Input Number", value: $editNum3, format: .number)
+                        .frame(height: 20)
+                        .frame(width: 100)
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("\(additionAction(num: editNum3,moneyNum: 1000))")
+                    Spacer()
+                }
+                HStack {
+                    Button(action: {
+                        totalAdditionAction()
+                    }) {
+                        Text("合計をだす")
+                    }
+                    Text("\(totalResult)")
                 }
             }
-            .toolbar {                   // ツールバーを親の一番上の要素に実装
+            .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()  // 右寄せにする
                     Button("Done") {
@@ -48,7 +70,12 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("金種明細計算機")
         }
-        .padding()
+    }
+    private func additionAction(num: Int,moneyNum: Int) -> Int {
+        return num * moneyNum
+    }
+    private func totalAdditionAction() {
+        totalResult = additionAction(num: editNum1, moneyNum: 10000) + additionAction(num: editNum2, moneyNum: 5000) + additionAction(num: editNum3, moneyNum: 1000)
     }
 }
 
