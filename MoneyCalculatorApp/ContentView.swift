@@ -12,8 +12,14 @@ struct Money  {
     var count = 0
 }
 
+enum Field: Hashable {
+    case title
+    case message
+}
+
 struct ContentView: View {
-    @FocusState var isInputActive: Bool
+    @FocusState  var isActive:Bool
+
     @State var toTotalAmount = false
     @State var toInfo = false
     @State var totalText = 0
@@ -39,6 +45,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .focused($isActive)
                             Text("\(moneyArray[index].count * moneyArray[index].amount)")
                         }
                     }
@@ -66,9 +73,9 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        isInputActive = false
+                    Spacer()         // 右寄せにする
+                    Button("閉じる") {
+                        isActive = false  //  フォーカスを外す
                     }
                 }
             }
