@@ -23,7 +23,8 @@ struct ContentView: View {
     @State var toTotalAmount = false
     @State var toInfo = false
     @State var totalText = 0
-    @State private var moneyArray = [
+    @State var moneyArray: [Money] = []
+    private let firstMoneyData = [
         Money(amount: 10000),
         Money(amount: 5000),
         Money(amount: 1000),
@@ -46,7 +47,7 @@ struct ContentView: View {
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .focused($isActive)
-                            Text("\(moneyArray[index].count * moneyArray[index].amount)")
+                            Text("\(firstMoneyData[index].count * firstMoneyData[index].amount)")
                         }
                     }
                     HStack {
@@ -59,13 +60,11 @@ struct ContentView: View {
                 VStack(spacing: 30) {
                     Button(action: {
                         totalAdditionAction()
-
                     }) {
                         Text("計算ボタン")
                     }
                     Button(action: {
                         clearButtonAction()
-
                     }) {
                         Text("クリア")
                     }
@@ -96,6 +95,9 @@ struct ContentView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("金種明細計算機")
+            .onAppear {
+                moneyArray = firstMoneyData
+            }
         }
         .fullScreenCover(isPresented: $toTotalAmount) {
             TotalAmountView()
@@ -103,7 +105,7 @@ struct ContentView: View {
     }
 
     private func totalAdditionAction() -> Int {
-        moneyArray.forEach {
+        firstMoneyData.forEach {
             totalText += $0.amount * $0.count
         }
         return totalText
@@ -111,7 +113,7 @@ struct ContentView: View {
 
     private func clearButtonAction() {
         totalText = 0
-
+        moneyArray = firstMoneyData
     }
 }
 
