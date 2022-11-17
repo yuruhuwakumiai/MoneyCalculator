@@ -16,6 +16,7 @@ struct ContentView: View {
     @FocusState var isInputActive: Bool
     @State var toTotalAmount = false
     @State var toInfo = false
+    @State var totalText = 0
     @State private var moneyArray = [
         Money(amount: 10000),
         Money(amount: 5000),
@@ -43,9 +44,23 @@ struct ContentView: View {
                     }
                     HStack {
                         Spacer()
-                        Text(totalAdditionAction())
+                        Text("\(totalText)")
                             .font(.largeTitle)
                         Spacer()
+                    }
+                }
+                VStack(spacing: 30) {
+                    Button(action: {
+                        totalAdditionAction()
+
+                    }) {
+                        Text("計算ボタン")
+                    }
+                    Button(action: {
+                        clearButtonAction()
+
+                    }) {
+                        Text("クリア")
                     }
                 }
             }
@@ -80,12 +95,16 @@ struct ContentView: View {
         }
     }
 
-    private func totalAdditionAction() -> String {
-        var sumResult = 0
+    private func totalAdditionAction() -> Int {
         moneyArray.forEach {
-            sumResult += $0.amount * $0.count
+            totalText += $0.amount * $0.count
         }
-        return sumResult.description
+        return totalText
+    }
+
+    private func clearButtonAction() {
+        totalText = 0
+
     }
 }
 
