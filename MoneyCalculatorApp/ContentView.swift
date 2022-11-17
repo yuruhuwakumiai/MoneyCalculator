@@ -7,75 +7,85 @@
 
 import SwiftUI
 
+struct Money  {
+    var amount = 0
+    var count = 0
+}
+
 struct ContentView: View {
-    @State var editNum1 = 0
-    @State var editNum2 = 0
-    @State var editNum3 = 0
-    @State var totalResult = 0
-    @FocusState var isInputActive:Bool
+    @FocusState var isInputActive: Bool
+    @State var toTotalAmount = false
+    @State var toInfo = false
+    @State private var moneyArray = [
+        Money(amount: 10000),
+        Money(amount: 5000),
+        Money(amount: 1000),
+        Money(amount: 500),
+        Money(amount: 100),
+        Money(amount: 50),
+        Money(amount: 10),
+    ]
 
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Spacer()
-                    Text("10000円")
-                    TextField("Input Number", value: $editNum1, format: .number)
-                        .frame(height: 20)
-                        .frame(width: 100)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text("\(additionAction(num: editNum1,moneyNum:10000))")
-                    Spacer()
-                }
-                HStack {
-                    Spacer()
-                    Text(" 5000円")
-                    TextField("Input Number", value: $editNum2, format: .number)
-                        .frame(height: 20)
-                        .frame(width: 100)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text("\(additionAction(num: editNum2,moneyNum: 5000))")
-                    Spacer()
-                }
-                HStack {
-                    Spacer()
-                    Text(" 1000円")
-                    TextField("Input Number", value: $editNum3, format: .number)
-                        .frame(height: 20)
-                        .frame(width: 100)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    Text("\(additionAction(num: editNum3,moneyNum: 1000))")
-                    Spacer()
-                }
-                HStack {
-                    Button(action: {
-                        totalAdditionAction()
-                    }) {
-                        Text("合計をだす")
+                List {
+                    ForEach(0..<moneyArray.count, id: \.self) { index in
+                        HStack {
+                            Text("\(moneyArray[index].amount)円")
+                                .frame(width: UIScreen.main.bounds.width/5, alignment: .trailing)
+                            TextField("", value: $moneyArray[index].count, format: .number)
+                                .frame(maxWidth: .infinity)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Text("\(moneyArray[index].count * moneyArray[index].amount)")
+                        }
                     }
-                    Text("\(totalResult)")
+                    HStack {
+                        Spacer()
+                        Text(totalAdditionAction())
+                            .font(.largeTitle)
+                        Spacer()
+                    }
                 }
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()  // 右寄せにする
+                    Spacer()
                     Button("Done") {
                         isInputActive = false
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                    } label: {
+                        Text("編集")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        toTotalAmount = true
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("金種明細計算機")
         }
+        .fullScreenCover(isPresented: $toTotalAmount) {
+            TotalAmountView()
+        }
     }
-    private func additionAction(num: Int,moneyNum: Int) -> Int {
-        return num * moneyNum
-    }
-    private func totalAdditionAction() {
-        totalResult = additionAction(num: editNum1, moneyNum: 10000) + additionAction(num: editNum2, moneyNum: 5000) + additionAction(num: editNum3, moneyNum: 1000)
+
+    private func totalAdditionAction() -> String {
+        var sumResult = 0
+        moneyArray.forEach {
+            sumResult += $0.amount * $0.count
+        }
+        return sumResult.description
     }
 }
 

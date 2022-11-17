@@ -11,6 +11,7 @@
 		09146C68291E0AFD006366CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09146C67291E0AFD006366CC /* ContentView.swift */; };
 		09146C6A291E0AFE006366CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09146C69291E0AFE006366CC /* Assets.xcassets */; };
 		09146C6D291E0AFE006366CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09146C6C291E0AFE006366CC /* Preview Assets.xcassets */; };
+		098BF7F229261A6A00029A42 /* TotalAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098BF7F129261A6A00029A42 /* TotalAmountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		09146C67291E0AFD006366CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		09146C69291E0AFE006366CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09146C6C291E0AFE006366CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		098BF7F129261A6A00029A42 /* TotalAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				09146C65291E0AFD006366CC /* MoneyCalculatorAppApp.swift */,
 				09146C67291E0AFD006366CC /* ContentView.swift */,
+				098BF7F129261A6A00029A42 /* TotalAmountView.swift */,
 				09146C69291E0AFE006366CC /* Assets.xcassets */,
 				09146C6B291E0AFE006366CC /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				098BF7F229261A6A00029A42 /* TotalAmountView.swift in Sources */,
 				09146C68291E0AFD006366CC /* ContentView.swift in Sources */,
 				09146C66291E0AFD006366CC /* MoneyCalculatorAppApp.swift in Sources */,
 			);
