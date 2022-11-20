@@ -9,10 +9,18 @@ import SwiftUI
 
 struct TotalAmountView: View {
     @Environment(\.dismiss) private var dismiss
+    @Binding var totalText: Int
+    @Binding var makeArray: [Int]
+
 
     var body: some View {
         VStack(spacing: 50) {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Text("\(totalText)")
+            List {
+                ForEach(0 ..< makeArray.count, id: \.self) { index in
+                    Text("\(makeArray[index])")
+                }
+            }
             Button(action: {
                 dismiss()
             }) {
@@ -22,8 +30,9 @@ struct TotalAmountView: View {
     }
 }
 
-struct TotalAmountView_Previews: PreviewProvider {
-    static var previews: some View {
-        TotalAmountView()
-    }
-}
+//struct TotalAmountView_Previews: PreviewProvider {
+//    @State static var aaaaa:Int = 0
+//        static var previews: some View {
+//                TotalAmountView(totalText: $aaaaa)
+//            }
+//}

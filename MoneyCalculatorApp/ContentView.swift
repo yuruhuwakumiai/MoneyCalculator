@@ -7,23 +7,20 @@
 
 import SwiftUI
 
-struct Money  {
+struct Money {
     var amount = 0
     var count = 0
 }
 
-enum Field: Hashable {
-    case title
-    case message
-}
-
 struct ContentView: View {
+
     @FocusState  var isActive:Bool
 
     @State var toTotalAmount = false
     @State var toInfo = false
     @State var totalText = 0
     @State var moneyArray: [Money] = []
+    @State private var makeArray: [Int] = []
     private let firstMoneyData = [
         Money(amount: 10000),
         Money(amount: 5000),
@@ -47,7 +44,7 @@ struct ContentView: View {
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .focused($isActive)
-                            Text("\(firstMoneyData[index].count * firstMoneyData[index].amount)")
+                            Text("\(moneyArray[index].count * moneyArray[index].amount)")
                         }
                     }
                     HStack {
@@ -60,6 +57,7 @@ struct ContentView: View {
                 VStack(spacing: 30) {
                     Button(action: {
                         totalAdditionAction()
+                        self.makeArray.append(self.totalText )
                     }) {
                         Text("計算ボタン")
                     }
@@ -100,12 +98,12 @@ struct ContentView: View {
             }
         }
         .fullScreenCover(isPresented: $toTotalAmount) {
-            TotalAmountView()
+            TotalAmountView(totalText: $totalText,makeArray: $makeArray)
         }
     }
 
     private func totalAdditionAction() -> Int {
-        firstMoneyData.forEach {
+        moneyArray.forEach {
             totalText += $0.amount * $0.count
         }
         return totalText
